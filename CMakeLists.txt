@@ -12,4 +12,7 @@ set(mega.build.mcu atmega2560)
 set(mega.upload.protocol wiring)
 set(mega.upload.speed 115200)
 
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libraries)
+set(U8glib_RECURSE True)
+
 generate_arduino_firmware(${CMAKE_PROJECT_NAME})
