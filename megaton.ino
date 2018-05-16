@@ -9,6 +9,14 @@
 #define RW 12
 #define RS 11
 
+typedef enum {
+    BTN_PLAY = 4,
+    BTN_REW = 6,
+    BTN_FF = 3,
+    BTN_STOP = 5,
+    BTN_PAUSE = 2
+} Button;
+
 // OLED display initialization
 U8GLIB_ST7920_128X64_1X lcd(EN, RW, RS);
 
@@ -45,9 +53,33 @@ void setup(void) {
     else if ( lcd.getMode() == U8G_MODE_BW ) {
         lcd.setColorIndex(1);
     }
+
+    pinMode(BTN_PLAY, INPUT_PULLUP);
+    pinMode(BTN_REW, INPUT_PULLUP);
+    pinMode(BTN_FF, INPUT_PULLUP);
+    pinMode(BTN_STOP, INPUT_PULLUP);
+    pinMode(BTN_PAUSE, INPUT_PULLUP);
+
+    Serial.begin(115200);
 }
 
 void loop(void) {
+    if(digitalRead(BTN_PLAY) == LOW){
+        Serial.println("PLAY");
+    }
+    if(digitalRead(BTN_REW) == LOW){
+        Serial.println("REWIND");
+    }
+    if(digitalRead(BTN_FF) == LOW){
+        Serial.println("FAST FORWARD");
+    }
+    if(digitalRead(BTN_STOP) == LOW){
+        Serial.println("STOP");
+    }
+    if(digitalRead(BTN_PAUSE) == LOW){
+        Serial.println("PAUSE");
+    }
+
     if (millis()-lastRefresh > 100) {
         lcd.firstPage();
         do {
